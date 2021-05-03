@@ -1,4 +1,11 @@
 package com.ltts.logexport.ziputility;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
+import com.ltts.logexport.exception.*;
+import com.ltts.logexport.fileproperties.Properties;
 
 public class ConvertToZip {
   public static void zipFile() throws IOException, Exception {
