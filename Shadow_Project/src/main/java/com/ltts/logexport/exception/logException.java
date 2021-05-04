@@ -1,6 +1,6 @@
 package com.ltts.logexport.exception;
 
-public class logException extends Exception()
+public class logException extends Exception
 {
   public logException()
 	{
