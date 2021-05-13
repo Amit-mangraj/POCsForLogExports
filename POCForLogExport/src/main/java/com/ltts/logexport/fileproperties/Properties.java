@@ -1,8 +1,8 @@
 package com.ltts.logexport.fileproperties;
 
 import org.springframework.beans.factory.annotation.Value;
+
 import org.springframework.boot.context.properties.ConfigurationProperties;
-//import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
@@ -16,18 +16,18 @@ public class Properties {
 	private String zipFilepath;
 	
 	@Value("${p.logFilepath}")
-	private String FOLDER;
+	private String myFolder;
 
 	public String getZipFilepath() {
 		return zipFilepath;
 	}
 
-	public String getFOLDER() {
-		return FOLDER;
+	public String getFolder() {
+		return myFolder;
 	}
 
-	public void setFOLDER(String fOLDER) {
-		FOLDER = fOLDER;
+	public void setFolder(String folder) {
+		myFolder = folder;
 	}
 
 	public void setZipFilepath(String zipFilepath) {

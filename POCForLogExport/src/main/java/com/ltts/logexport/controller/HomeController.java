@@ -1,5 +1,4 @@
 package com.ltts.logexport.controller;
-import java.io.File;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,20 +22,16 @@ public class HomeController {
 		
 	}
 	@GetMapping("/download")
-	public void download(HttpServletResponse res)throws Exception
+	public void download(HttpServletResponse res)throws LogException
 	{
  
 		try
 		{
 			fileStorage.saveFile(res);
-			File file = new File(myProperties.getZipFilepath());
-			
-			//After downloading file to localhost zipped file to be deleted from the remote server
-			file.delete();
 		}
 		catch(Exception ex)
 		{
-			throw new logException();
+			throw new LogException();
 		}
 	}
 
