@@ -26,7 +26,7 @@ public class ConvertToZip {
 	  
 	  //Method that converts folder to a zip file
 	
-	  public void zip_folder(){
+	  public void zipFolder(){
 	    
 	    try (FileOutputStream fos = new FileOutputStream(myProperties.getFOLDER().concat(".zip"));
 	        ZipOutputStream zos = new ZipOutputStream(fos)) {            

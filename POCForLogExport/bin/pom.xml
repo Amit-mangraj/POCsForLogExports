@@ -37,7 +37,7 @@
 			<optional>true</optional>
 		</dependency>
 	</dependencies>
-<packaging>jar</packaging>
+
 	<build>
 		<plugins>
 			<plugin>

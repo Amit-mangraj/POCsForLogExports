@@ -1,15 +1,15 @@
 package com.ltts.logexport.exception;
 
+import java.util.logging.Logger;
 
-public class logException extends Exception{
-	
-	/**
-	 * 
-	 */
+import java.util.logging.Level;
+
+public class LogException extends Exception{
 	private static final long serialVersionUID = 1L;
 
-	public logException(){
-		System.out.println("Log Not Found"); //user defined exception
+	public LogException(){
+		Logger logger = Logger.getLogger(LogException.class.getName());  
+		logger.log(Level.INFO, "Logs Not Found"); //user defined exception
 	}
 	
 }

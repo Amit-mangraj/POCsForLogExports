@@ -2,11 +2,12 @@ package com.ltts.logexport.filestorageservice;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import com.ltts.logexport.exception.LogException;
 import com.ltts.logexport.fileproperties.Properties;
 import com.ltts.logexport.ziputility.ConvertToZip;
 @Component
@@ -17,28 +18,31 @@ public class FileStorageService {
 	@Autowired
 	private ConvertToZip convertTozip;
 	
-	public void saveFile(HttpServletResponse res) throws IOException, Exception {
-		
-		//Calling the  zip method before downloading the zip to localhost
-		convertTozip.zip_folder();
+	public void saveFile(HttpServletResponse res) throws LogException {
 		File file = new File(myProperties.getZipFilepath());
-		res.setContentType("application/octet-stream");
-		String headerKey ="Content-Disposition";
-		String headerValue="attachment;filename="+file.getName();
-		res.setHeader(headerKey, headerValue);
-		ServletOutputStream outputStream = res.getOutputStream();
-		BufferedInputStream inputStream =new BufferedInputStream(new FileInputStream(file));
-		byte[] buffer = new byte[8192];
-		int bytesRead=-1;
-		while((bytesRead=inputStream.read(buffer))!=-1)
+		try(BufferedInputStream inputStream =new BufferedInputStream(new FileInputStream(file));)
 		{
-			outputStream.write(buffer,0,bytesRead);
-			
+			convertTozip.zipFolder();
+			res.setContentType("application/octet-stream");
+			String headerKey ="Content-Disposition";
+			String headerValue="attachment;filename="+file.getName();
+			res.setHeader(headerKey, headerValue);
+			ServletOutputStream outputStream = res.getOutputStream();
+		
+			byte[] buffer = new byte[8192];
+			int bytesRead=-1;
+			while((bytesRead=inputStream.read(buffer))!=-1)
+			{
+				outputStream.write(buffer,0,bytesRead);
+				
+			}
+			outputStream.close();
 		}
-		inputStream.close();
-		outputStream.close();
+		catch(Exception e)
+		{
+			throw new LogException();
+		}
 	
-
 	}
 
 }
