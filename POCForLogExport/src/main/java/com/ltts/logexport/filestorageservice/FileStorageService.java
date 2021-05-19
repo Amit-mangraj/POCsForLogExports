@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.ltts.logexport.exception.LogException;
+import com.ltts.logexport.exception.ZipException;
 import com.ltts.logexport.fileproperties.Properties;
 import com.ltts.logexport.ziputility.ConvertToZip;
 @Component
@@ -18,14 +19,15 @@ public class FileStorageService {
 	@Autowired
 	private ConvertToZip convertTozip;
 	
-	public void saveFile(HttpServletResponse res) throws LogException {
+	public void saveFile(HttpServletResponse res) throws LogException, ZipException {
 		File file = new File(myProperties.getZipFilepath());
+		convertTozip.zipFolder();
 		try(BufferedInputStream inputStream =new BufferedInputStream(new FileInputStream(file));)
-		{
-			convertTozip.zipFolder();
+	{
+			
 			res.setContentType("application/octet-stream");
 			String headerKey ="Content-Disposition";
-			String headerValue="attachment;filename="+file.getName();
+		String headerValue="attachment;filename="+file.getName();
 			res.setHeader(headerKey, headerValue);
 			ServletOutputStream outputStream = res.getOutputStream();
 		
@@ -38,11 +40,13 @@ public class FileStorageService {
 			}
 			outputStream.close();
 		}
-		catch(Exception e)
-		{
+		catch(Exception e)		{
 			throw new LogException();
 		}
 	
 	}
+	
+	
+
 
 }

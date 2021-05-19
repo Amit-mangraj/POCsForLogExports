@@ -1,5 +1,8 @@
 package com.ltts.logexport.controller;
 
+
+import java.io.File;
+
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,6 +32,8 @@ public class HomeController {
 		try
 		{
 			fileStorage.saveFile(res);
+			File file = new File(myProperties.getZipFilepath());
+			file.deleteOnExit();
 		}
 		catch(Exception ex)
 		{

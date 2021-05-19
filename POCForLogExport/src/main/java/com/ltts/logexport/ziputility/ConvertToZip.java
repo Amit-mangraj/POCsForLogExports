@@ -14,7 +14,7 @@ import java.util.zip.ZipOutputStream;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Component;
-
+import com.ltts.logexport.exception.ZipException;
 import com.ltts.logexport.fileproperties.*;
 @Component
 public class ConvertToZip {
@@ -26,7 +26,7 @@ public class ConvertToZip {
 	  
 	  //Method that converts folder to a zip file
 	
-	  public void zipFolder(){
+	  public void zipFolder() throws ZipException{
 	    
 	    try (FileOutputStream fos = new FileOutputStream(myProperties.getFOLDER().concat(".zip"));
 	        ZipOutputStream zos = new ZipOutputStream(fos)) {            
@@ -51,9 +51,9 @@ public class ConvertToZip {
 	          return FileVisitResult.CONTINUE;
 	        }
 	      });
-	    } catch (IOException e) {
-	    
-	      e.printStackTrace();
+	    } catch (Exception ex) {
+	    	throw new ZipException();
+	      
 	    }
 	  }
 }
