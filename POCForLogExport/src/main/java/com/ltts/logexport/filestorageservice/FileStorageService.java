@@ -27,7 +27,7 @@ public class FileStorageService {
 			
 			res.setContentType("application/octet-stream");
 			String headerKey ="Content-Disposition";
-		String headerValue="attachment;filename="+file.getName();
+		    String headerValue="attachment;filename="+file.getName();
 			res.setHeader(headerKey, headerValue);
 			ServletOutputStream outputStream = res.getOutputStream();
 		

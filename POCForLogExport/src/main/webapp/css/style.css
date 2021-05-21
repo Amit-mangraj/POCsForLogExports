@@ -102,7 +102,7 @@ h1, h2, h3, h4, h5, h6 {
 
 
 #hero .animated {
-  animation: up-down 2s ease-in-out infinite alternate-reverse both;
+  animation: up-down 1s ease-in-out infinite alternate-reverse both;
 }
 
 /*@media (max-width: 991px) {
