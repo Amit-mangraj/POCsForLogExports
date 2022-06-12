@@ -25,7 +25,7 @@ public class HomeController {
 		return "home";
 		
 	}
-	//method to download logs
+	//method to download logs and dlete when you exit the application
 	@GetMapping("/download")
 	public void download(HttpServletResponse res)throws LogException
 	{
